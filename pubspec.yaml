@@ -39,7 +39,8 @@ dependencies:
   connectivity: ^0.4.3+4
   # json模板
   json_annotation: ^2.4.0
-
+  # svg
+  flutter_svg: ^0.13.1
 dev_dependencies:
   build_runner: ^1.0.0
   # json模板
@@ -60,9 +61,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/svg/password.svg
+    - assets/svg/username.svg
+    - assets/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

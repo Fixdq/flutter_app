@@ -36,4 +36,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 //序列化
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  // 命名构造函数
+  User.empty();
 }
