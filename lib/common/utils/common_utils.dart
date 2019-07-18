@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/config/config.dart';
+import 'package:flutter_app/common/local/local_storage.dart';
 import 'package:flutter_app/common/redux/theme_redux.dart';
 import 'package:flutter_app/common/style/global_style.dart';
 import 'package:flutter_app/common/utils/navigator_utils.dart';
 import 'package:flutter_app/widget/theme_item_button.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:redux/redux.dart';
 
 class CommonUtils {
@@ -30,7 +33,6 @@ class CommonUtils {
 
   /// 根据颜色获取主题
   static getThemeData(Color color) {
-    print(color.toString());
     return ThemeData(primarySwatch: color, platform: TargetPlatform.android);
   }
 
@@ -72,4 +74,24 @@ class CommonUtils {
           );
         });
   }
+
+  static getPermissions() async {
+
+    /// 检查权限
+    PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
+
+    /// 是否授权
+    if(permission!= PermissionStatus.granted){
+      /// 打开应用设置＃
+      bool isOpened = await PermissionHandler().openAppSettings();
+      /// 申请权限
+      Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+
+      if (permissions[PermissionGroup.storage] != PermissionStatus.granted) {
+        return null;
+      }
+    }
+  }
 }
+
+

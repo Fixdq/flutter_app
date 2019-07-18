@@ -12,7 +12,6 @@ final ThemeDataReducer = combineReducers<ThemeData>([
 /// 定义处理action 行为的方法  返回新的state
 ThemeData _refresh(ThemeData themeData,action){
   themeData = action.themeData;
-  print(themeData.primaryColor);
   return themeData;
 }
 

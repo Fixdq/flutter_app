@@ -30,7 +30,7 @@ class ThemeChange extends StatelessWidget {
       // 更换主题
       CommonUtils.pushTheme(store, index);
       // 保存主题选择到本地
-      LocalStorage.save(Config.THEME_COLOR, index.toString());
+      LocalStorage.setInt(Config.THEME_COLOR, index);
     }, colorlist: CommonUtils.getThemeListColor());
   }
 

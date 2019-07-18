@@ -124,8 +124,8 @@ class _LoginPageState extends State<LoginPage> {
   /// 初始化编辑框信息
   void initParams() async{
     /// 获取本地存储信息
-    _username = await LocalStorage.get(Config.USER_NAME_KEY);
-    _password = await LocalStorage.get(Config.PW_KEY);
+    _username = await LocalStorage.getString(Config.USER_NAME_KEY);
+    _password = await LocalStorage.getString(Config.PW_KEY);
     /// 填充编辑框
     usernameController.value = TextEditingValue(text: _username??'');
     passwordController.value = TextEditingValue(text: _password??'');
