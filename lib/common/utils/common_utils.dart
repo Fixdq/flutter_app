@@ -1,6 +1,9 @@
+import 'dart:convert';
+
+import 'package:convert/convert.dart';
+import 'package:crypto/crypto.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/config/config.dart';
-import 'package:flutter_app/common/local/local_storage.dart';
 import 'package:flutter_app/common/redux/theme_redux.dart';
 import 'package:flutter_app/common/style/global_style.dart';
 import 'package:flutter_app/common/utils/navigator_utils.dart';
@@ -83,7 +86,7 @@ class CommonUtils {
     /// 是否授权
     if(permission!= PermissionStatus.granted){
       /// 打开应用设置＃
-      bool isOpened = await PermissionHandler().openAppSettings();
+//      bool isOpened = await PermissionHandler().openAppSettings();
       /// 申请权限
       Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.storage]);
 
@@ -91,6 +94,15 @@ class CommonUtils {
         return null;
       }
     }
+  }
+
+
+  /// MD5 加密
+  static generateMd5(String data){
+    var content = Utf8Encoder().convert(data);
+    var  digest = md5.convert(content);
+    // 这里其实就是 digest.toString()
+    return hex.encode(digest.bytes);
   }
 }
 

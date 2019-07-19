@@ -1,4 +1,7 @@
 
+import 'package:flutter_app/common/event/event_instance.dart';
+import 'package:flutter_app/common/event/event_model.dart';
+
 ///错误编码
 class Code {
   ///网络错误
@@ -17,7 +20,8 @@ class Code {
     if(noTip) {
       return message;
     }
-
+    /// 开火
+    eventBus.fire(HttpErrorEvent(code, message));
     return message;
   }
 }

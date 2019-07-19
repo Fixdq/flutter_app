@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/common/model/user.dart';
 import 'package:flutter_app/common/redux/theme_redux.dart';
 import 'package:flutter_app/common/redux/user_redux.dart';
-import 'package:redux/redux.dart';
 
 
-/**
- * redux 全局State
- *
- */
-
+///redux 全局State
 class GlobalState{
   User userInfo;
   ThemeData themeData;

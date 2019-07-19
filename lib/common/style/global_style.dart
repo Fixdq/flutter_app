@@ -1,9 +1,7 @@
 /// 颜色，图标，字体样式
 import 'package:flutter/material.dart';
 
-/**
- *颜色
- */
+///颜色
 class GlobalColors {
   static const String primaryValueString = "#24292E";
   static const String primaryLightValueString = "#42464b";
@@ -46,9 +44,7 @@ class GlobalColors {
   );
 }
 
-/**
- * 图标
- */
+/// 图标
 class GlobalIcons {
 
   static const String FONTFAMILY = 'MaterialIcons';

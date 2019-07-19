@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/config/config.dart';
+import 'package:flutter_app/common/dao/user_dao.dart';
 import 'package:flutter_app/common/local/local_storage.dart';
 import 'package:flutter_app/common/redux/global_state.dart';
 import 'package:flutter_app/common/style/global_style.dart';
-import 'package:flutter_app/common/utils/common_utils.dart';
 import 'package:flutter_app/widget/input_widget.dart';
 import 'package:flutter_app/widget/theme_item_button.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -104,9 +103,14 @@ class _LoginPageState extends State<LoginPage> {
                                   if (_password == null || _password.trim().length == 0){
                                     return;
                                   }
+                                  UserDao.login(_username.trim(), _password.trim(), store).then((res){
+                                    print('then');
+                                    print(res.toString());
+                                  });
 
                                 },
-                              )
+                              ),
+                              Padding(padding: EdgeInsets.all(10),),
                             ],
                           ),
                         ),

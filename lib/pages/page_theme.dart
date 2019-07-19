@@ -3,7 +3,6 @@ import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/local/local_storage.dart';
 import 'package:flutter_app/common/redux/global_state.dart';
 import 'package:flutter_app/common/utils/common_utils.dart';
-import 'package:flutter_app/common/utils/navigator_utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';

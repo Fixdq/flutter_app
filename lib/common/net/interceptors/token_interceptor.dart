@@ -45,13 +45,7 @@ class TokenInterceptors extends InterceptorsWrapper {
   getAuthorization() async {
     String token = await LocalStorage.getString(Config.TOKEN_KEY);
     if (token == null) {
-      String basic = await LocalStorage.getString(Config.USER_BASIC_CODE);
-      if (basic == null) {
-        //提示输入账号密码
-      } else {
-        //通过 basic 去获取token，获取到设置，返回token
-        return "Basic $basic";
-      }
+      return null;
     } else {
       this._token = token;
       return token;
