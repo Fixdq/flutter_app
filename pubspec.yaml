@@ -23,6 +23,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  # 路由管理
+  fluro: ^1.5.1
   # 状态管理
   flutter_redux: ^0.5.3
   # 网络
@@ -48,6 +50,8 @@ dependencies:
   path_provider: ^1.1.2
   # 加载动画库
   flutter_spinkit: "^3.1.0"
+
+
 dev_dependencies:
   build_runner: ^1.0.0
   # json模板
