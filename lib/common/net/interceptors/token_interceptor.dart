@@ -16,22 +16,14 @@ class TokenInterceptors extends InterceptorsWrapper {
         _token = authorizationCode;
       }
     }
-    options.headers["Authorization"] = _token;
+    options.headers["Authorization"] = 'Token '+_token;
     return options;
   }
 
 
   @override
   onResponse(Response response) async{
-    try {
-      var responseJson = response.data;
-      if (response.statusCode == 201 && responseJson["token"] != null) {
-        _token = 'token ' + responseJson["token"];
-        await LocalStorage.setString(Config.TOKEN_KEY, _token);
-      }
-    } catch (e) {
-      print(e);
-    }
+
     return response;
   }
 

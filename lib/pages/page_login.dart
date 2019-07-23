@@ -4,6 +4,9 @@ import 'package:flutter_app/common/dao/user_dao.dart';
 import 'package:flutter_app/common/local/local_storage.dart';
 import 'package:flutter_app/common/redux/global_state.dart';
 import 'package:flutter_app/common/style/global_style.dart';
+import 'package:flutter_app/common/utils/common_utils.dart';
+import 'package:flutter_app/common/utils/navigator_utils.dart';
+import 'package:flutter_app/pages/page_home.dart';
 import 'package:flutter_app/widget/input_widget.dart';
 import 'package:flutter_app/widget/theme_item_button.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -103,11 +106,15 @@ class _LoginPageState extends State<LoginPage> {
                                   if (_password == null || _password.trim().length == 0){
                                     return;
                                   }
+                                  CommonUtils.showLoadingDialog(context);
                                   UserDao.login(_username.trim(), _password.trim(), store).then((res){
-                                    print('then');
-                                    print(res.toString());
-                                  });
+                                    Navigator.pop(context);
+                                    if (res){
 
+                                      Navigator.pop(context);
+                                      NavigatorUtils.goHome(context);
+                                    }
+                                  });
                                 },
                               ),
                               Padding(padding: EdgeInsets.all(10),),

@@ -1,8 +1,5 @@
-import 'dart:collection';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_app/common/net/code.dart';
-import 'package:flutter_app/common/net/interceptors/error_interceptor.dart';
 import 'package:flutter_app/common/net/interceptors/header_interceptor.dart';
 import 'package:flutter_app/common/net/interceptors/log_interceptor.dart';
 import 'package:flutter_app/common/net/interceptors/response_interceptor.dart';
@@ -32,7 +29,7 @@ class HttpManager {
   _net(
     String path, {
     header,
-    noTip = false,
+    isShow=true,
     data,
     Map<String, dynamic> queryParameters,
     CancelToken cancelToken,
@@ -43,25 +40,48 @@ class HttpManager {
     if (options == null) options = Options();
     if (header != null) options.headers = header;
 
-    resultError(DioError e) {
+
+    handleError(DioError e) {
+      /**
+       *  统一的错误处理方法
+       *  将异常包装为 ResultBase 对象，返回
+       *  响应拦截器 再进行处理
+       */
       Response errorResponse;
+
       if (e.response != null) {
+        /// 服务器有响应，但是带有错误的响应码：404, 503...
+        /// 发送了请求，也收到了响应，是一个错误响应，带有错误验证码。
         errorResponse = e.response;
       } else {
-        errorResponse = Response(statusCode: 666);
+        /// 错误发生在在服务器返回数据之前，`e.response` 为 `null`
+        /// 发送了请求，压根没收到响应。
+        errorResponse = Response(statusCode: -10);
       }
-      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
-          e.type == DioErrorType.RECEIVE_TIMEOUT) {
-        errorResponse.statusCode = Code.NETWORK_TIMEOUT;
+
+      /// 处理请求、响应超时
+      if (e.type == DioErrorType.CONNECT_TIMEOUT || /// 请求超时
+          e.type == DioErrorType.RECEIVE_TIMEOUT /// 响应超时
+      ) {
+        /// 设置请求错误状态吗
+        errorResponse.statusCode = Code.NETWORK_TIMEOUT; /// 网络超时
       }
-      return ResultData(
-          Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip),
+
+      /// 将结果返回
+      return ResultBase(
+          /// 错误信息
+          Code.errorHandleFunction(errorResponse.statusCode, e.message, isShow),
+          /// 是否正确请求 False
           false,
+          /// 错误响应吗
           errorResponse.statusCode);
     }
 
     Response response;
+    /// 处理发送之前的异常
     try {
+
+      /// 发送请求
       response = await _dio.request(
         path,
         data: data,
@@ -72,20 +92,18 @@ class HttpManager {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioError catch (e) {
-      return resultError(e);
+      /// 请求异常，调用异常处理方法
+      return handleError(e);
     }
+
     if (response.data is DioError) {
-      return resultError(response.data);
+      /// 响应异常，调用异常处理方法
+      return handleError(response.data);
     }
+
+    /// 正常响应， ResponseInterceptors 拦截器会统一处理响应
     return response.data;
   }
-
-  /// POST 请求
-  post(path,{data,Map<String, dynamic> header,onTap=false,Options options,})async{
-    return await _net(path,data: data,header:header,noTip: onTap,options: _checkOptions("POST",options));
-  }
-
-
 
   Options _checkOptions(method, options) {
     if (options == null) {
@@ -94,6 +112,53 @@ class HttpManager {
     options.method = method;
     return options;
   }
+
+  post(
+      String path, {
+        data,
+        header,
+        isShow=true,
+        Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken,
+        ProgressCallback onSendProgress,
+        ProgressCallback onReceiveProgress,
+      }) {
+    return _net(
+      path,
+      header:header,
+      isShow:true,
+      data: data,
+      options: _checkOptions("POST", options),
+      queryParameters: queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+  }
+
+
+  get(
+      String path, {
+        header,
+        isShow=true,
+        Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken,
+        ProgressCallback onReceiveProgress,
+      }) {
+    return _net(
+      path,
+      header:header,
+      isShow:true,
+      queryParameters: queryParameters,
+      options: _checkOptions("GET", options),
+      onReceiveProgress: onReceiveProgress,
+      cancelToken: cancelToken,
+    );
+  }
+
+
 }
 
 

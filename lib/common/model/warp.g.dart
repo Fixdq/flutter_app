@@ -7,11 +7,7 @@ part of 'warp.dart';
 // **************************************************************************
 
 Warp _$WarpFromJson(Map<String, dynamic> json) {
-  return Warp(
-      json['status'] as int,
-      json['detail'] == null
-          ? null
-          : User.fromJson(json['detail'] as Map<String, dynamic>));
+  return Warp(json['status'] as int, json['detail']);
 }
 
 Map<String, dynamic> _$WarpToJson(Warp instance) =>

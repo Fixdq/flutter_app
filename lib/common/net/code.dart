@@ -1,4 +1,3 @@
-
 import 'package:flutter_app/common/event/event_instance.dart';
 import 'package:flutter_app/common/event/event_model.dart';
 
@@ -16,12 +15,13 @@ class Code {
   static const SUCCESS = 200;
 
 
-  static errorHandleFunction(code, message, noTip) {
-    if(noTip) {
+  static errorHandleFunction(code, message, isShow) {
+    /// 错误信息处理，isShow 是否需要吐司提示，默认提示
+    if(isShow) {
+      /// 开火
+      eventBus.fire(HttpErrorEvent(code, message));
       return message;
     }
-    /// 开火
-    eventBus.fire(HttpErrorEvent(code, message));
     return message;
   }
 }

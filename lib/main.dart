@@ -56,10 +56,10 @@ class MyApp extends StatelessWidget {
     return StoreProvider(
         store: store,
         child: StoreBuilder<GlobalState>(builder: (context, store) {
-          return MaterialApp(theme: store.state.themeData, routes: {
-            HomePage.sName: (context) {
-              return HomePage();
-            },
+          return MaterialApp(
+              theme: store.state.themeData,
+              routes: {
+                HomePage.sName: (context) {return HomePage();},
           });
         }));
   }
@@ -83,7 +83,9 @@ class MyApp extends StatelessWidget {
         Fluttertoast.showToast(msg: "网络错误");
         break;
       default:
-        Fluttertoast.showToast(msg: "网络错误");
+        Fluttertoast.showToast(
+            fontSize:12.0,
+            msg: "$message");
         break;
     }
   }

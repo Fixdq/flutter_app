@@ -2,7 +2,7 @@ import 'package:flutter_app/common/config/config.dart';
 
 ///地址数据
 class Address {
-  static const String host = "https://github.com/";
+  static const String host = "http://47.105.72.55/";
   static const String hostWeb = "https://github.com/";
   static const String downloadUrl = 'https://www.pgyer.com/GSYGithubApp';
   static const String graphicHost = 'https://ghchart.rshah.org/';

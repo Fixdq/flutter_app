@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/page_home.dart';
 
 
 /**
@@ -18,6 +19,9 @@ class NavigatorUtils {
     Navigator.pushNamed(context, routeName);
   }
 
+  static goHome(BuildContext context,) {
+    Navigator.pushReplacementNamed(context, HomePage.sName);
+  }
 
   ///公共打开方式
   static NavigatorRouter(BuildContext context, Widget widget) {

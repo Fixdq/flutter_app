@@ -3,9 +3,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter_app/common/net/code.dart';
 import 'package:flutter_app/common/net/result_data.dart';
 
-///是否需要弹提示
-const NOT_TIP_KEY = "noTip";
-
 
 class RequestInterceptors extends InterceptorsWrapper {
   final Dio _dio;
@@ -13,11 +10,13 @@ class RequestInterceptors extends InterceptorsWrapper {
   RequestInterceptors(this._dio);
   @override
   onRequest(RequestOptions options) async {
-    //没有网络
+    /// 没有网络
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
+      /// 请求并返回一些自定义数据，可以返回一个`Response`对象或返回`dio.resolve(data)`。
+      /// 这样请求将会被终止，上层then会被调用，then中返回的数据将是你的自定义数据data.
       return _dio.resolve(
-          new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", false),
+          new ResultBase(Code.errorHandleFunction(Code.NETWORK_ERROR, "",true),
               false,
               Code.NETWORK_ERROR));
     }

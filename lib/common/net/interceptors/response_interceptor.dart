@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_app/common/model/warp.dart';
 import 'package:flutter_app/common/net/code.dart';
 import 'package:flutter_app/common/net/result_data.dart';
 
@@ -11,14 +12,27 @@ class ResponseInterceptors extends InterceptorsWrapper {
     RequestOptions option = response.request;
     try {
       if (option.contentType != null && option.contentType.primaryType == "text") {
-        return ResultData(response.data, true, Code.SUCCESS);
+
+        /// 数据的外层解析
+        return handleResonse(response);
       }
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return ResultData(response.data, true, Code.SUCCESS, headers: response.headers);
+        /// 数据的外层解析
+        return handleResonse(response);
       }
     } catch (e) {
       print(e.toString() + option.path);
-      return ResultData(response.data, false, response.statusCode, headers: response.headers);
+      return ResultBase(response.data, false, response.statusCode, headers: response.headers);
+    }
+  }
+
+  ResultBase handleResonse(Response response) {
+      /// 数据的外层解析
+    Warp warp = Warp.fromJson(response.data);
+    if (0 == warp.status){
+      return ResultBase(warp.detail, true, Code.SUCCESS);
+    }else{
+      return ResultBase(Code.errorHandleFunction(Code.SUCCESS, warp.detail, true), false, Code.SUCCESS);
     }
   }
 }

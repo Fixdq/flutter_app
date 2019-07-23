@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/redux/theme_redux.dart';
 import 'package:flutter_app/common/style/global_style.dart';
@@ -96,6 +96,42 @@ class CommonUtils {
     }
   }
 
+
+  static Future<Null> showLoadingDialog(BuildContext context) {
+    return NavigatorUtils.showFixDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new Material(
+              color: Colors.transparent,
+              child: WillPopScope(
+                onWillPop: () => Future.value(false),
+                child: Center(
+                  child: Container(
+                    width: 200.0,
+                    height: 200.0,
+                    padding: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Color(GlobalColors.white),
+                      //用一个BoxDecoration装饰器提供背景图片
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Container(
+                            child: SpinKitPouringHourglass(color: Theme.of(context).primaryColor),
+                        ),
+                        new Container(
+                            child: new Text(
+                                '登录中',)),
+                      ],
+                    ),
+                  ),
+                ),
+              ));
+        });
+  }
 
   /// MD5 加密
   static generateMd5(String data){
