@@ -14,6 +14,8 @@ class UserDao{
 
     // md加密
     password = CommonUtils.generateMd5(password);
+    print(username);
+    print(password);
     await LocalStorage.setString(Config.USER_NAME_KEY, username);
     var res = await httpUtil.post(Address.urlLogin(),data:{'phone':username,"password":password});
     if (res != null && res.result){
