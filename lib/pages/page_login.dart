@@ -6,7 +6,6 @@ import 'package:flutter_app/common/redux/global_state.dart';
 import 'package:flutter_app/common/style/global_style.dart';
 import 'package:flutter_app/common/utils/common_utils.dart';
 import 'package:flutter_app/common/utils/navigator_utils.dart';
-import 'package:flutter_app/pages/page_home.dart';
 import 'package:flutter_app/widget/input_widget.dart';
 import 'package:flutter_app/widget/theme_item_button.dart';
 import 'package:flutter_redux/flutter_redux.dart';
