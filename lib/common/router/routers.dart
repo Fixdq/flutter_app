@@ -13,6 +13,7 @@ class Routers {
   static String listviewbase = "/listview/base";
   static String listviewpull = "/listview/pull";
   static String listviewload = "/listview/load";
+  static String listviewsliver = "/listview/sliver";
 
   static void configureRouters(Router router) {
     /// 匹配失败处理
@@ -30,6 +31,7 @@ class Routers {
     router.define(listviewbase, handler: listViewBaseHandler, transitionType: defaultTransition);
     router.define(listviewpull, handler: listViewPullHandler, transitionType: defaultTransition);
     router.define(listviewload, handler: listViewLoadHandler, transitionType: defaultTransition);
+    router.define(listviewsliver, handler: listViewSliverHandler, transitionType: defaultTransition);
 
   }
 }

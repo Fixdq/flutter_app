@@ -25,6 +25,7 @@ class _FixdListViewState extends State<FixdListView> {
     '基本使用': Routers.listviewbase,
     '下拉刷新': Routers.listviewpull,
     '上拉加载': Routers.listviewload,
+    'Sliver': Routers.listviewsliver,
   };
 
   /// 获取所有item 元素
@@ -34,6 +35,8 @@ class _FixdListViewState extends State<FixdListView> {
     /// 遍历生成item
     titles.forEach((title, path) {
       childs.add(ListTile(
+        leading: Icon(Icons.assistant_photo,color: Colors.red,),
+        trailing: Icon(Icons.chevron_right),
         title: Text(title),
         onTap: () {
           Application.router.navigateTo(context, path);
