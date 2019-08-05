@@ -1,7 +1,10 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_app/common/router/application.dart';
 import 'package:flutter_app/common/router/routers.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class FListViewPage extends StatelessWidget {
   @override
@@ -21,11 +24,16 @@ class FixdListView extends StatefulWidget {
 }
 
 class _FixdListViewState extends State<FixdListView> {
+
+
+
+
   final Map<String, String> listTitles = {
     '基本使用': Routers.listviewbase,
     '下拉刷新': Routers.listviewpull,
     '上拉加载': Routers.listviewload,
     'Sliver': Routers.listviewsliver,
+    'SliverSimple': Routers.listviewsliversimple,
   };
 
   /// 获取所有item 元素
@@ -53,5 +61,33 @@ class _FixdListViewState extends State<FixdListView> {
       itemExtent: 50.0,
       children: getChilds(listTitles),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((Duration timestamp) {
+      // 设置EasyRefresh的默认样式
+      EasyRefresh.defaultHeader = ClassicalHeader(
+        enableInfiniteRefresh: false,
+        refreshText:'pullToRefresh',
+        refreshReadyText:'releaseToRefresh',
+        refreshingText:'refreshing',
+        refreshedText:'refreshed',
+        refreshFailedText:'refreshFailed',
+        noMoreText:'noMore',
+        infoText:'updateAt',
+      );
+      EasyRefresh.defaultFooter = ClassicalFooter(
+        enableInfiniteLoad: true,
+        loadText:'pushToLoad',
+        loadReadyText:'releaseToLoad',
+        loadingText:'loading',
+        loadedText:'loaded',
+        loadFailedText:'loadFailed',
+        noMoreText:'noMore',
+        infoText:'updateAt',
+      );
+    });
   }
 }
