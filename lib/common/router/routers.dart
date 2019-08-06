@@ -14,7 +14,7 @@ class Routers {
   static String listviewpull = "/listview/pull";
   static String listviewload = "/listview/load";
   static String listviewsliver = "/listview/sliver";
-  static String listviewsliversimple = "/listview/sliver/simple";
+  static String listviewsliversimple = "/listview/simple";
 
   static void configureRouters(Router router) {
     /// 匹配失败处理
