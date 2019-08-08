@@ -53,6 +53,7 @@ class MyListTile extends StatelessWidget{
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: (){
         Application.router.navigateTo(context, path);
+        Application.router.navigateTo(context, path, clearStack: true);
       },
     );
   }
