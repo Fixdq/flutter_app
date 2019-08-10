@@ -15,6 +15,7 @@ class Routers {
   static String listviewload = "/listview/load";
   static String listviewsliver = "/listview/sliver";
   static String listviewsliversimple = "/listview/simple";
+  static String dialogsimple = "/dialog/simple";
 
   static void configureRouters(Router router) {
     /// 匹配失败处理
@@ -34,6 +35,7 @@ class Routers {
     router.define(listviewload, handler: listViewLoadHandler, transitionType: defaultTransition);
     router.define(listviewsliver, handler: listViewSliverHandler, transitionType: defaultTransition);
     router.define(listviewsliversimple, handler: listViewSliverSimpleHandler, transitionType: defaultTransition);
+    router.define(dialogsimple, handler: dialogSimpleHandler, transitionType: defaultTransition);
 
   }
 }
