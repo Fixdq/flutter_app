@@ -5,6 +5,7 @@ import 'package:flutter_app/pages/listview/page_listview_load_to_refresh.dart';
 import 'package:flutter_app/pages/listview/page_listview_pull_to_refresh.dart';
 import 'package:flutter_app/pages/listview/page_listview_sliver.dart';
 import 'package:flutter_app/pages/listview/page_listview_sliver_simple.dart';
+import 'package:flutter_app/pages/page_dialogs.dart';
 import 'package:flutter_app/pages/page_home.dart';
 import 'package:flutter_app/pages/page_listview.dart';
 import 'package:flutter_app/pages/page_login.dart';
@@ -62,4 +63,10 @@ var listViewSliverHandler = Handler(
 var listViewSliverSimpleHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> parameters) {
   return ListViewSliverSimpleView();
+});
+
+/// dialog demo
+var dialogSimpleHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> parameters) {
+  return DialogPage();
 });
