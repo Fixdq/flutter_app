@@ -30,6 +30,11 @@ class HomePage extends StatelessWidget {
             title: 'ListView默认',
             path: Routers.listview,
           ),
+          MyListTile(
+            icon:Icons.camera,
+            title: 'Dialog',
+            path: Routers.dialogsimple,
+          ),
         ],
       ),
     );
