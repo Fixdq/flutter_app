@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class DialogPage extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _DialogPageState extends State<DialogPage> {
       appBar: AppBar(
         title: Text('Dialogs'),
       ),
-      body: Builder(builder: (BuildContext context){
+      body: Builder(builder: (BuildContext context) {
         return ListView(
           children: <Widget>[
             RaisedButton(
@@ -61,13 +62,37 @@ class _DialogPageState extends State<DialogPage> {
             RaisedButton(
               child: Text('BottomSheet'),
               onPressed: () {
-                _showBottomSheet(context,1);
+                _showBottomSheet(context, 1);
               },
             ),
             RaisedButton(
               child: Text('ModalBottomSheet'),
               onPressed: () {
-                _showBottomSheet(context,2);
+                _showBottomSheet(context, 2);
+              },
+            ),
+            RaisedButton(
+              child: Text('CalendarDataPicker'),
+              onPressed: () {
+                _calendarDataPicker(context);
+              },
+            ),
+            RaisedButton(
+              child: Text('TimeDataPicker'),
+              onPressed: () {
+                _timeDataPicker(context);
+              },
+            ),
+            RaisedButton(
+              child: Text('CupertinoPicker'),
+              onPressed: () {
+                _showCupertinoPicker(context);
+              },
+            ),
+            RaisedButton(
+              child: Text('ThirdDateTimePicker'),
+              onPressed: () {
+                _showThirdDateTimePicker(context);
               },
             ),
           ],
@@ -187,17 +212,13 @@ class _DialogPageState extends State<DialogPage> {
   _cupertionAlertDialog(BuildContext context) {
     var _title = Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text("提示")
-      ],
+      children: <Widget>[Text("提示")],
     );
 
     var _content = Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Text("确认删除吗")
-      ],
+      children: <Widget>[Text("确认删除吗")],
     );
 
     /// actions
@@ -227,25 +248,26 @@ class _DialogPageState extends State<DialogPage> {
   }
 
   /// StatefulWidgetDialog
-  _statefulWidgetDialog(BuildContext context){
+  _statefulWidgetDialog(BuildContext context) {
     var propress = 0.0;
 
     StateSetter stateSetter;
+
     /// 计时器 模拟进度
-    Timer.periodic(Duration(milliseconds: 50), (timer){
+    Timer.periodic(Duration(milliseconds: 50), (timer) {
       propress += 0.01;
       print(propress);
-      if (stateSetter != null){
-          stateSetter((){});
+      if (stateSetter != null) {
+        stateSetter(() {});
       }
-      if (propress >=1){
+      if (propress >= 1) {
         timer.cancel();
-        stateSetter =null;
+        stateSetter = null;
         Navigator.of(context).pop();
       }
     });
 
-    var _builder = StatefulBuilder(builder: (context,state){
+    var _builder = StatefulBuilder(builder: (context, state) {
       stateSetter = state;
       return Center(
         child: SizedBox(
@@ -263,11 +285,19 @@ class _DialogPageState extends State<DialogPage> {
                   valueColor: AlwaysStoppedAnimation(Colors.white),
                   value: propress,
                 ),
-                SizedBox(height: 20.0,),
-                Text('Loading...',style: TextStyle(color: Colors.white),),
-                SizedBox(height: 5.0,),
-                Text("done ${((propress - 0.1) * 100).toStringAsFixed(1) }%",
-                style: TextStyle(color: Colors.white),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  'Loading...',
+                  style: TextStyle(color: Colors.white),
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Text(
+                  "done ${((propress - 0.1) * 100).toStringAsFixed(1)}%",
+                  style: TextStyle(color: Colors.white),
                 )
               ],
             ),
@@ -275,52 +305,110 @@ class _DialogPageState extends State<DialogPage> {
         ),
       );
     });
-    showDialog(context: context,builder: (context) =>_builder);
-
+    showDialog(context: context, builder: (context) => _builder);
   }
 
   /// 使用Scaffold.of方法获取ScaffoldState调用showSnackBar
-  _scaffoldSnackBar(BuildContext context){
+  _scaffoldSnackBar(BuildContext context) {
     var snackbar = SnackBar(
       backgroundColor: Colors.black,
       content: Text('下载完成了'),
       duration: Duration(seconds: 2),
-      action: SnackBarAction(label: '确定', onPressed: (){
-        print('再见');
-      }),
+      action: SnackBarAction(
+          label: '确定',
+          onPressed: () {
+            print('再见');
+          }),
     );
 
     Scaffold.of(context).showSnackBar(snackbar);
   }
 
-  _showBottomSheet(BuildContext context, int type){
-
-    var _bottomSheet = BottomSheet(
-        onClosing: (){
-          print('关闭了');
-        },
-        builder: (BuildContext context){
-          return Container(
-            color: Colors.greenAccent,
-            child: Padding(
-              padding: EdgeInsets.all(5.0),
-              child: Center(
-                heightFactor: 1.0,
+  /// 底部抽屉弹框
+  _showBottomSheet(BuildContext context, int type) {
+    var _bottomSheet = BottomSheet(onClosing: () {
+      print('关闭了');
+    }, builder: (BuildContext context) {
+      return Container(
+        color: Colors.greenAccent,
+        child: Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Center(
+            heightFactor: 1.0,
 //            child: Text('BottomSheet'),
-                child: CachedNetworkImage(imageUrl: "https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=92afee66fd36afc3110c39658318eb85/908fa0ec08fa513db777cf78376d55fbb3fbd9b3.jpg",height: 200.0,fit: BoxFit.fill,),
-              ),
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=92afee66fd36afc3110c39658318eb85/908fa0ec08fa513db777cf78376d55fbb3fbd9b3.jpg",
+              height: 200.0,
+              fit: BoxFit.fill,
             ),
-          );
-        }
-    );
-    if (type==1){
+          ),
+        ),
+      );
+    });
+    if (type == 1) {
       /// showBottomSheet 点击不会消失的bottomsheet
       Scaffold.of(context).showBottomSheet(_bottomSheet.builder);
     }
-    if (type==2){
+    if (type == 2) {
       /// showModalBottomSheet  点击其他地方会消失的bottomsheet
       showModalBottomSheet(context: context, builder: _bottomSheet.builder);
     }
+  }
 
+  /// 日期选择
+  _calendarDataPicker(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1990),
+      lastDate: DateTime(2090),
+    );
+  }
+
+  /// 时间选择
+  _timeDataPicker(BuildContext context) {
+    showTimePicker(context: context, initialTime: TimeOfDay.now());
+  }
+
+  /// 选择表
+  _showCupertinoPicker(BuildContext context) {
+    var listTitles = ['AA', 'BB', 'CC', 'DD', 'EE'];
+    var picker = CupertinoPicker(
+      /// item 高度
+      itemExtent: 40.0,
+      onSelectedItemChanged: (index) {
+        print("index==${index},value==${listTitles[index]}");
+      },
+      children: listTitles.map((v) {
+        return Text(v);
+      }).toList(),
+    );
+
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 200.0,
+            child: picker,
+          );
+        });
+  }
+
+  /// 第三方日期插件
+  /// 日期选择
+  _showThirdDateTimePicker(BuildContext context) {
+    DatePicker.showDatePicker(
+      context,
+      locale: DateTimePickerLocale.zh_cn,
+      onCancel: () => print("取消"),
+      onClose: () => print("关闭"),
+      onConfirm: (date, List<int> index) {
+        print(date);
+      },
+      onChange: (date, List<int> index) {
+        print(date);
+      },
+    );
   }
 }

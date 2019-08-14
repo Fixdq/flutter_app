@@ -50,13 +50,15 @@ dependencies:
   # 文件路径管理
   path_provider: ^1.1.2
   # 加载动画库
-  flutter_spinkit: "^3.1.0"
+  flutter_spinkit: ^3.1.0
   # easyrefresh
   flutter_easyrefresh: ^2.0.0
   # 国际化
   flutter_i18n: ^0.6.3
   # 图片缓存
   cached_network_image: ^1.1.1
+  # 时间控件
+  flutter_cupertino_date_picker: ^1.0.11
 
 dev_dependencies:
   build_runner: ^1.0.0
