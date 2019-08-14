@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             path: Routers.listview,
           ),
           MyListTile(
-            icon:Icons.camera,
+            icon:Icons.add_alert,
             title: 'Dialog',
             path: Routers.dialogsimple,
           ),
@@ -58,7 +58,7 @@ class MyListTile extends StatelessWidget{
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: (){
         Application.router.navigateTo(context, path);
-        Application.router.navigateTo(context, path, clearStack: true);
+//        Application.router.navigateTo(context, path, clearStack: true);
       },
     );
   }
